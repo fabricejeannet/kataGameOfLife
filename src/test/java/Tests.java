@@ -18,7 +18,7 @@ public class Tests {
 
 
     @Test
-    public void foundsNoNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsNoLivingNeighboursInAnEmptyGrid() {
 
         int neighboursCount = gameOfLife.countlivingNeighbours(1, 4);
 
@@ -26,7 +26,7 @@ public class Tests {
     }
 
     @Test
-    public void foundsOneNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsOneLivingNeighbour() {
 
         gameOfLife.setLivingCell(0, 3);
 
@@ -37,7 +37,7 @@ public class Tests {
 
 
     @Test
-    public void foundsTwoNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsTwoLivingNeighbours() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -49,7 +49,7 @@ public class Tests {
 
 
     @Test
-    public void foundsThreeNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsThreeLivingNeighbours() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -61,7 +61,7 @@ public class Tests {
     }
 
     @Test
-    public void foundsFourNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsFourLivingNeighbours() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -74,7 +74,7 @@ public class Tests {
     }
 
     @Test
-    public void foundsFiveNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsFiveLivingNeighbours() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -88,7 +88,7 @@ public class Tests {
     }
 
     @Test
-    public void foundsSixNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsSixLivingNeighbours() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -104,7 +104,7 @@ public class Tests {
 
 
     @Test
-    public void foundsSevenNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsSevenLivingNeighbours() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -120,7 +120,7 @@ public class Tests {
     }
 
     @Test
-    public void foundsHeightNeighbourAroundARandomCellWithNoNeighbour() {
+    public void foundsHeightLivingNeighbours() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -137,7 +137,7 @@ public class Tests {
     }
 
     @Test
-    public void foundsThreeNeighbourAroundCorner() {
+    public void foundsThreeLivingNeighboursForTheTopLeftCornerCell() {
 
         gameOfLife.setLivingCell(0, 1);
         gameOfLife.setLivingCell(1, 1);
@@ -148,6 +148,17 @@ public class Tests {
         assertThat(neighboursCount).isEqualTo(3);
     }
 
+    @Test
+    public void foundsThreeLivingNeighboursForTheBottomRightCornerCell() {
+
+        gameOfLife.setLivingCell(3, 6);
+        gameOfLife.setLivingCell(2, 6);
+        gameOfLife.setLivingCell(2, 7);
+
+        int neighboursCount = gameOfLife.countlivingNeighbours(3, 7);
+
+        assertThat(neighboursCount).isEqualTo(3);
+    }
 
     @Test
     public void aCellWithFewerThanTwoNeighboursDies() {

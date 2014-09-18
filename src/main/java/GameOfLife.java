@@ -55,13 +55,13 @@ public class GameOfLife {
 
             for (int x = 0; x < columnCount; x++) {
 
-                if (aLivingCellHasLessThanTwoLivingNeighbours(y, x)) {
+                if (thisCellIsAliveAndHasLessThanTwoLivingNeighbours(y, x)) {
                     nextGenerationGrid[y][x] = 0;
-                } else if (aLivingCellHasTwoOrThreeNeighbours(y, x)) {
+                } else if (thisCellIsAliveAndHasTwoOrThreeLivingNeighbours(y, x)) {
                     nextGenerationGrid[y][x] = 1;
-                } else if (aLivingCellHasMoreThanThreeNeighbours(y, x)) {
+                } else if (thisCellIsAliveAndHasMoreThanThreeLivingNeighbours(y, x)) {
                     nextGenerationGrid[y][x] = 0;
-                } else if (aDeadCellHasThreeNeigbours(y, x)) {
+                } else if (thisCellIsDeadAndHasThreeLivingNeighbours(y, x)) {
                     nextGenerationGrid[y][x] = 1;
                 } else {
                     nextGenerationGrid[y][x] = grid[y][x];
@@ -73,22 +73,22 @@ public class GameOfLife {
         grid = nextGenerationGrid.clone();
     }
 
-    private boolean aDeadCellHasThreeNeigbours(int row, int column) {
+    private boolean thisCellIsDeadAndHasThreeLivingNeighbours(int row, int column) {
         int livingNeighbours = countlivingNeighbours(row, column);
         return isDead(row, column) && livingNeighbours == 3;
     }
 
-    private boolean aLivingCellHasMoreThanThreeNeighbours(int row, int column) {
+    private boolean thisCellIsAliveAndHasMoreThanThreeLivingNeighbours(int row, int column) {
         int livingNeighbours = countlivingNeighbours(row, column);
         return isAlive(row, column) && livingNeighbours > 3;
     }
 
-    private boolean aLivingCellHasTwoOrThreeNeighbours(int row, int column) {
+    private boolean thisCellIsAliveAndHasTwoOrThreeLivingNeighbours(int row, int column) {
         int livingNeighbours = countlivingNeighbours(row, column);
         return isAlive(row, column) && (livingNeighbours == 2 || livingNeighbours == 3);
     }
 
-    private boolean aLivingCellHasLessThanTwoLivingNeighbours(int row, int column) {
+    private boolean thisCellIsAliveAndHasLessThanTwoLivingNeighbours(int row, int column) {
         int neighboursCount = countlivingNeighbours(row, column);
         return isAlive(row, column) && neighboursCount < 2;
     }
