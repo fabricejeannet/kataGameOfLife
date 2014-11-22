@@ -2,7 +2,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -168,7 +167,7 @@ public class Tests {
 
         gameOfLife.computeNextGeneration();
 
-        assertThat(gameOfLife.isAlive(0,0)).isFalse();
+        assertThat(gameOfLife.isDead(0,0)).isTrue();
     }
 
 
@@ -186,7 +185,7 @@ public class Tests {
 
 
     @Test
-    public void aCellWithMoreThanThreNeighboursDies() {
+    public void aCellWithMoreThanThreeNeighboursDies() {
 
         gameOfLife.setLivingCell(1, 4);
         gameOfLife.setLivingCell(0, 3);
@@ -196,13 +195,13 @@ public class Tests {
 
         gameOfLife.computeNextGeneration();
 
-        assertThat(gameOfLife.isAlive(1,4)).isFalse();
+        assertThat(gameOfLife.isDead(1,4)).isTrue();
 
     }
 
 
     @Test
-    public void aDeadCellWithThreNeighboursGetsAlive() {
+    public void aDeadCellWithThreeNeighboursGetsAlive() {
 
         gameOfLife.setLivingCell(0, 3);
         gameOfLife.setLivingCell(0, 4);
@@ -224,10 +223,10 @@ public class Tests {
         gameOfLife.computeNextGeneration();
 
         int [][] expectedGrid = new int[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 1, 1, 0, 0, 0},
-                {0, 0, 0, 1, 1, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
+                {GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL},
+                {GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.LIVING_CELL, GameOfLife.LIVING_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL},
+                {GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.LIVING_CELL, GameOfLife.LIVING_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL},
+                {GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL, GameOfLife.DEAD_CELL}
         };
 
        assertThat(Arrays.deepEquals(gameOfLife.grid, expectedGrid)).isTrue();

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by fabricejeannet on 16/09/2014.
  */
@@ -8,10 +10,17 @@ public class GameOfLife {
         grid = new int [rowCount][columnCount];
         this.rowCount = grid.length;
         this.columnCount = grid[0].length;
+        initializeGridWithDeadCells();
+    }
+
+    public void initializeGridWithDeadCells(){
+        for (int y = 0; y < this.rowCount; y++) {
+            Arrays.fill(grid[y], DEAD_CELL);
+        }
     }
 
     public void setLivingCell(int row, int column) {
-        grid[row][column] = 1;
+        grid[row][column] = LIVING_CELL;
     }
 
     public int countlivingNeighbours(int row, int column) {
@@ -34,8 +43,8 @@ public class GameOfLife {
             int rowToCheck = cellsToCheck[i][0];
             int colTocheck = cellsToCheck[i][1];
 
-            if (isInTheGrid(rowToCheck, colTocheck)) {
-                livingNeighbours += grid[rowToCheck][colTocheck];
+            if (isInTheGrid(rowToCheck, colTocheck) && isAlive(rowToCheck, colTocheck)) {
+                livingNeighbours ++ ;
             }
 
         }
@@ -56,13 +65,13 @@ public class GameOfLife {
             for (int x = 0; x < columnCount; x++) {
 
                 if (thisCellIsAliveAndHasLessThanTwoLivingNeighbours(y, x)) {
-                    nextGenerationGrid[y][x] = 0;
+                    nextGenerationGrid[y][x] = DEAD_CELL;
                 } else if (thisCellIsAliveAndHasTwoOrThreeLivingNeighbours(y, x)) {
-                    nextGenerationGrid[y][x] = 1;
+                    nextGenerationGrid[y][x] = LIVING_CELL;
                 } else if (thisCellIsAliveAndHasMoreThanThreeLivingNeighbours(y, x)) {
-                    nextGenerationGrid[y][x] = 0;
+                    nextGenerationGrid[y][x] = DEAD_CELL;
                 } else if (thisCellIsDeadAndHasThreeLivingNeighbours(y, x)) {
-                    nextGenerationGrid[y][x] = 1;
+                    nextGenerationGrid[y][x] = LIVING_CELL;
                 } else {
                     nextGenerationGrid[y][x] = grid[y][x];
                 }
@@ -95,15 +104,17 @@ public class GameOfLife {
 
 
     public boolean isAlive(int row, int column) {
-        return grid[row][column] == 1;
+        return grid[row][column] == LIVING_CELL;
     }
 
     public boolean isDead(int row, int column) {
-        return grid[row][column] == 0;
+        return grid[row][column] == DEAD_CELL;
     }
 
-    public int[][] grid;
     private int rowCount;
-
     private int columnCount;
+
+    public int[][] grid;
+    public final static int DEAD_CELL = 0;
+    public final static int LIVING_CELL = 1;
 }
